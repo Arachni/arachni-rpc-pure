@@ -39,7 +39,7 @@ rescue Arachni::RPC::Exceptions::InvalidMethod => e
 end
 
 begin
-    # foo() expects an argument but arrity is not checked so the call will be
+    # foo() expects an argument but arity is not checked so the call will be
     # forwarded to the remote object which will throw a remote exception
     bench.foo
 rescue Arachni::RPC::Exceptions::RemoteException => e
