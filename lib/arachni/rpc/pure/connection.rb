@@ -74,7 +74,7 @@ class Connection
     private
 
     def serializer
-        @opts[:serializer] ? @opts[:serializer] : Marshal
+        @opts[:serializer] ? @opts[:serializer] : YAML
     end
 
 
