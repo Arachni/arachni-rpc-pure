@@ -28,8 +28,10 @@ Gem::Specification.new do |s|
       s.extra_rdoc_files  = %w( README.md LICENSE.md CHANGELOG.md )
       s.rdoc_options      = ["--charset=UTF-8"]
 
+      s.add_dependency "arachni-rpc",   "= 0.1"
+
+
       s.description = <<description
-        EventMachine based RPC client and server capable of a few thousands requests per second (depending on call size, network conditions and the like).
-        It supports TLS encryption, asynchronous and synchronous requests and is capable of handling remote asynchronous calls that require a block.
+        Pure Ruby client implementation of the Arachni-RPC protocol.
 description
 end
