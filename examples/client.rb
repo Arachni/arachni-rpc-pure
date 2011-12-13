@@ -5,7 +5,7 @@ require 'pp'
 
 client = Arachni::RPC::Pure::Client.new(
     :host  => 'localhost',
-    :port  => 7331,
+    :port  => 7332,
     :token => 'superdupersecret',
     :serializer => Marshal
 )
@@ -49,7 +49,7 @@ end
 
 client = Arachni::RPC::Pure::Client.new(
     :host  => 'localhost',
-    :port  => 7331,
+    :port  => 7332,
     :token => 'invalidtoken',
     :serializer => Marshal
 )
