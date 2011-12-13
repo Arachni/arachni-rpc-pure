@@ -53,8 +53,6 @@ If you want to clone the repository and work with the source code:
     cd arachni-rpc-pure
     rake install
 
-You'l also need to install <a href="http://github.com/Arachni/arachni-rpc-pure">Arachni-RPC</a>.
-
 ## Bug reports/Feature requests
 Please send your feedback using Github's issue system at
 [http://github.com/arachni/arachni-rpc-pure/issues](http://github.com/arachni/arachni-rpc-pure/issues).
