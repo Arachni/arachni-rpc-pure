@@ -24,6 +24,7 @@ class Connection
         if opts[:ssl_cert] && opts[:ssl_pkey]
             @ssl_context.cert = OpenSSL::X509::Certificate.new( File.open( opts[:ssl_cert] ) )
             @ssl_context.key = OpenSSL::PKey::RSA.new( File.open( opts[:ssl_pkey] ) )
+            @ssl_context.ca_file = opts[:ssl_ca]
             @ssl_context.verify_mode =
                 OpenSSL::SSL::VERIFY_PEER | OpenSSL::SSL::VERIFY_FAIL_IF_NO_PEER_CERT
         end

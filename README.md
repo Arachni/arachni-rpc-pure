@@ -53,6 +53,20 @@ If you want to clone the repository and work with the source code:
     cd arachni-rpc-pure
     rake install
 
+## Running the Specs
+
+In order to run the specs you must first fire up 2 sample servers although they are not part of this project -- as it is only a client implementation.<br/>
+You can find the required servers in the [Arachni-RPC EM](https://github.com/Arachni/arachni-rpc-em) project.
+
+From inside the Arachni-RPC EM directory run:
+
+    ruby spec/servers/basic.rb
+    ruby spec/servers/with_ssl_primitives.rb
+
+Then, from inside the directory of Arachni-RPC Pure:
+
+    rake spec
+
 ## Bug reports/Feature requests
 Please send your feedback using Github's issue system at
 [http://github.com/arachni/arachni-rpc-pure/issues](http://github.com/arachni/arachni-rpc-pure/issues).

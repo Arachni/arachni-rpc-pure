@@ -19,7 +19,19 @@ class Client
     end
 
     def call( msg, *args )
-        conn = Connection.new( @opts )
+        conn = nil
+        begin
+            conn = Connection.new( @opts )
+        rescue OpenSSL::SSL::SSLError => ex
+            e = Arachni::RPC::Exceptions::SSLPeerVerificationFailed.new( ex.to_s )
+            e.set_backtrace( ex.backtrace )
+            raise e
+        rescue Errno::ECONNREFUSED => ex
+            e = Arachni::RPC::Exceptions::ConnectionError.new( ex.to_s )
+            e.set_backtrace( ex.backtrace )
+            raise e
+        end
+
         response = conn.perform( request( msg, *args ) )
         conn.close
 
