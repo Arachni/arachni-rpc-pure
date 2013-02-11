@@ -66,5 +66,6 @@ end
 #
 desc "Push a new version to Gemcutter"
 task :publish => [ :build ] do
+	sh "git tag -a v#{Arachni::RPC::Pure::VERSION} -m 'Version #{Arachni::RPC::Pure::VERSION}'"
     sh "gem push arachni-rpc-pure-#{Arachni::RPC::Pure::VERSION}.gem"
 end
