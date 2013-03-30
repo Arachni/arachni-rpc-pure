@@ -2,7 +2,7 @@
 <table>
     <tr>
         <th>Version</th>
-        <td>0.1.1</td>
+        <td>0.1.2</td>
     </tr>
     <tr>
         <th>Github page</th>
@@ -22,7 +22,7 @@
     </tr>
     <tr>
         <th>Copyright</th>
-        <td>2011</td>
+        <td>2011-2013</td>
     </tr>
     <tr>
         <th>License</th>
