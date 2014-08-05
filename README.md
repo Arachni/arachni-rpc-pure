@@ -1,8 +1,9 @@
 # Arachni-RPC Pure
+
 <table>
     <tr>
         <th>Version</th>
-        <td>0.1.2</td>
+        <td>0.2</td>
     </tr>
     <tr>
         <th>Github page</th>
@@ -14,7 +15,7 @@
     </tr>
     <tr>
        <th>Author</th>
-       <td><a href="mailto:tasos.laskos@gmail.com">Tasos</a> "<a href="mailto:zapotek@segfault.gr">Zapotek</a>" <a href="mailto:tasos.laskos@gmail.com">Laskos</a></td>
+       <td><a href="mailto:tasos.laskos@gmail.com">Tasos Laskos</a></td>
     </tr>
     <tr>
         <th>Twitter</th>
@@ -22,7 +23,7 @@
     </tr>
     <tr>
         <th>Copyright</th>
-        <td>2011-2013</td>
+        <td>2011-2014</td>
     </tr>
     <tr>
         <th>License</th>
@@ -32,12 +33,18 @@
 
 ## Synopsis
 
-Arachni-RPC Pure is a simple implementation of a client for the <a href="http://github.com/Arachni/arachni-rpc-pure">Arachni-RPC</a> protocol.<br/>
-It's written in pure Ruby using SSL sockets and does not have any 3rd party dependencies -- besides the Arachni-RPC spec itself.
+Arachni-RPC Pure is a simple implementation of a client for the
+[Arachni-RPC](http://github.com/Arachni/arachni-rpc) protocol and comes
+pre-configured with a suitable serializer (MessagePack basically) for
+communicating with [Arachni](http://github.com/Arachni/arachni)'s services.
+
+It is, in essence, a very simple, reference implementation for people who want
+to write their own clients in order to communicate with
+[Arachni](http://github.com/Arachni/arachni).
 
 ## Usage
 
-Check out the files in the <i>examples/</i> directory, they go through everything in great detail.
+Usages examples are in the `examples/` directory.
 
 ## Installation
 
@@ -55,7 +62,9 @@ If you want to clone the repository and work with the source code:
 
 ## Running the Specs
 
-In order to run the specs you must first fire up 2 sample servers although they are not part of this project -- as it is only a client implementation.<br/>
+In order to run the specs you must first fire up 2 sample servers although they
+are not part of this project -- as it is only a client implementation.
+
 You can find the required servers in the [Arachni-RPC EM](https://github.com/Arachni/arachni-rpc-em) project.
 
 From inside the Arachni-RPC EM directory run:
@@ -73,6 +82,8 @@ Please send your feedback using Github's issue system at
 
 
 ## License
-Arachni-RPC Pure is provided under the 3-clause BSD license.<br/>
+
+Arachni-RPC Pure is provided under the 3-clause BSD license.
+
 See the [LICENSE](file.LICENSE.html) file for more information.
 

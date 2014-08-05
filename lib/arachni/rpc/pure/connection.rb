@@ -6,40 +6,65 @@
 
 =end
 
+require 'openssl'
+require 'socket'
+require 'zlib'
+require 'msgpack'
+
 module Arachni
 module RPC
 module Pure
 
+# Represents an RPC connection, which is basically an OpenSSL socket with
+# the ability to serialize/unserialize RPC messages.
+#
+# @author   Tasos Laskos <tasos.laskos@gmail.com>
 class Connection
 
-    def initialize( opts )
-        @opts = opts
+    # @param    [Hash]  options
+    # @option   options    [String]  :host
+    #   Hostname/IP address.
+    # @option   options    [Integer] :port
+    #   Port number.
+    # @option   options    [String]  :ssl_ca
+    #   SSL CA certificate.
+    # @option   options    [String]  :ssl_pkey
+    #   SSL private key.
+    # @option   options    [String]  :ssl_cert
+    #   SSL certificate.
+    def initialize( options )
+        context = OpenSSL::SSL::SSLContext.new
 
-        socket = TCPSocket.new( opts[:host], opts[:port] )
+        if options[:ssl_cert] && options[:ssl_pkey]
+            context.cert =
+                OpenSSL::X509::Certificate.new( File.open( options[:ssl_cert] ) )
 
-        @ssl_context = OpenSSL::SSL::SSLContext.new
+            context.key  =
+                OpenSSL::PKey::RSA.new( File.open( options[:ssl_pkey] ) )
 
-        if opts[:ssl_cert] && opts[:ssl_pkey]
-            @ssl_context.cert = OpenSSL::X509::Certificate.new( File.open( opts[:ssl_cert] ) )
-            @ssl_context.key = OpenSSL::PKey::RSA.new( File.open( opts[:ssl_pkey] ) )
-            @ssl_context.ca_file = opts[:ssl_ca]
-            @ssl_context.verify_mode =
+            context.ca_file     = options[:ssl_ca]
+            context.verify_mode =
                 OpenSSL::SSL::VERIFY_PEER | OpenSSL::SSL::VERIFY_FAIL_IF_NO_PEER_CERT
         end
 
-        @ssl_socket = OpenSSL::SSL::SSLSocket.new( socket, @ssl_context )
-        @ssl_socket.sync_close = true
-        @ssl_socket.connect
+        @socket = OpenSSL::SSL::SSLSocket.new(
+            TCPSocket.new( options[:host], options[:port] ),
+            context
+        )
+        @socket.sync_close = true
+        @socket.connect
     end
 
+    # Closes the connection.
     def close
-        @ssl_socket.close
+        @socket.close
     end
 
+    # @param    [Hash]  request
+    #   RPC request message data.
     def perform( request )
-        Response.new( send_rcv_object( request.prepare_for_tx ) )
+        send_rcv_object( request )
     end
-
 
     private
 
@@ -49,12 +74,12 @@ class Connection
     end
 
     def send_object( obj )
-        serialized = serializer.dump( obj )
-        @ssl_socket.puts( [ serialized.bytesize, serialized ].pack( 'Na*' ) )
+        serialized = serialize( obj )
+        @socket.puts( [ serialized.bytesize, serialized ].pack( 'Na*' ) )
     end
 
     def receive_object
-        while data = @ssl_socket.sysread( 99999 )
+        while data = @socket.sysread( 99999 )
             (@buf ||= '') << data
             while @buf.size >= 4
                 if @buf.size >= 4 + ( size = @buf.unpack( 'N' ).first )
@@ -62,7 +87,7 @@ class Connection
 
                     complete = @buf.slice!( 0, size )
                     @buf = ''
-                    return serializer.load( complete )
+                    return unserialize( complete )
                 else
                     break
                 end
@@ -70,12 +95,31 @@ class Connection
         end
     end
 
-    private
-
-    def serializer
-        @opts[:serializer] ? @opts[:serializer] : YAML
+    def serialize( object )
+        MessagePack.dump object
     end
 
+    def unserialize( object )
+        MessagePack.load try_decompress( object )
+    end
+
+    # @note Will return the `string` as is if it was not compressed.
+    #
+    # @param    [String]    string
+    #   String to decompress.
+    #
+    # @return   [String]
+    #   Decompressed string.
+    def try_decompress( string )
+        # Just an ID representing a serialized, empty data structure.
+        return string if string.size == 1
+
+        begin
+            Zlib::Inflate.inflate string
+        rescue Zlib::DataError
+            string
+        end
+    end
 
 end
 

@@ -6,11 +6,5 @@
 
 =end
 
-require 'openssl'
-require 'socket'
-require 'yaml'
-YAML::ENGINE.yamler = 'syck'
-
-require 'arachni/rpc'
-require File.join( File.expand_path( File.dirname( __FILE__ ) ), 'pure', 'connection' )
-require File.join( File.expand_path( File.dirname( __FILE__ ) ), 'pure', 'client' )
+require_relative 'pure/connection'
+require_relative 'pure/client'
