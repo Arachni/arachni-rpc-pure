@@ -72,7 +72,7 @@ class Client
     def handle_exception( response )
         return if !(data = response['exception'])
 
-        exception = RuntimeError.new( "#{data['type']}: #{data['name']}" )
+        exception = RuntimeError.new( "#{data['type']}: #{data['message']}" )
         exception.set_backtrace( data['backtrace'] )
 
         raise exception
