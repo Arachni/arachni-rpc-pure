@@ -13,7 +13,7 @@ module Pure
 # Very simple client, essentially establishes a {Connection} and performs
 # requests.
 #
-# @author   Tasos Laskos <tasos.laskos@gmail.com>
+# @author   Tasos Laskos <tasos.laskos@arachni-scanner.com>
 class Client
 
     # @param    [Hash]  options

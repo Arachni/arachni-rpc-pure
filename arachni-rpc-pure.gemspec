@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
       s.date              = Time.now.strftime('%Y-%m-%d')
       s.summary           = "Pure Ruby client for Arachni-RPC."
       s.homepage          = "https://github.com/Arachni/arachni-rpc-pure"
-      s.email             = "tasos.laskos@gmail.com"
+      s.email             = "tasos.laskos@arachni-scanner.com"
       s.authors           = [ "Tasos Laskos" ]
 
       s.files             = %w( README.md Rakefile LICENSE.md CHANGELOG.md )

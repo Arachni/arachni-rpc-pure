@@ -18,7 +18,7 @@ module Pure
 # Represents an RPC connection, which is basically an OpenSSL socket with
 # the ability to serialize/unserialize RPC messages.
 #
-# @author   Tasos Laskos <tasos.laskos@gmail.com>
+# @author   Tasos Laskos <tasos.laskos@arachni-scanner.com>
 class Connection
 
     # @param    [Hash]  options

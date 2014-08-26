@@ -15,7 +15,7 @@
     </tr>
     <tr>
        <th>Author</th>
-       <td><a href="mailto:tasos.laskos@gmail.com">Tasos Laskos</a></td>
+       <td><a href="mailto:tasos.laskos@arachni-scanner.com">Tasos Laskos</a></td>
     </tr>
     <tr>
         <th>Twitter</th>
