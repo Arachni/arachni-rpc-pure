@@ -1,6 +1,6 @@
 # ChangeLog
 
-## Version 0.2
+## Version 0.2 _(August 29, 2014)_
 
 - Re-purposed to be a client reference for Arachni specifically rather than Arachni-RPC.
 
